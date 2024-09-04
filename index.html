@@ -1,0 +1,25 @@
+<!--comment at the top saying something that is supposedly important-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!--probably need something here for the UI but worry about that later-->
+    <title>Elo</title>
+</head>
+<body>
+    <!--now try to remember how to code-->
+    <script src = "player.js"></script>
+    <script>
+        var a= new player ("a", 1900.0);
+        var b = new player ("b", 900.0);
+        var tempScore = a.score
+        a.updateScore(b.score, true);
+        b.updateScore(tempScore, false);
+        console.log(a.score);
+        console.log(b.score);
+        console.log(b.roundScore());
+        console.log(a.roundScore());
+    </script>
+</body>
+</html>
