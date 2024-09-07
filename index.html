@@ -1,25 +1,69 @@
-<!--comment at the top saying something that is supposedly important-->
-
+<!--  "¯\_(ツ)_/¯"  -->
 
 <!DOCTYPE html>
 <html>
 <head>
     <!--probably need something here for the UI but worry about that later-->
     <title>Elo</title>
+    <link href="quepro.css" rel="stylesheet">
 </head>
 <body>
-    <!--now try to remember how to code-->
+    <!--Main Code-->
     <script src = "player.js"></script>
-    <script>
-        var a= new player ("a", 1900.0);
-        var b = new player ("b", 900.0);
-        var tempScore = a.score
-        a.updateScore(b.score, true);
-        b.updateScore(tempScore, false);
-        console.log(a.score);
-        console.log(b.score);
-        console.log(b.roundScore());
-        console.log(a.roundScore());
-    </script>
+
+    <!--Create objects-->
+    <div>
+        <script>
+            var players = [];
+            for(var i = 0; i < playerNamesNumbers.length; i++){
+                players.push(new player(playerNamesNumbers[i], 1200));
+            }
+
+
+            var a = randomInt(1, 100);
+            var b = randomInt(1, 100);
+        </script>
+    </div>
+    <div>
+        
+        <button id="button-1" class="class">
+            
+        </button>
+        <button id="button-2">
+            
+        </button>
+        <script>
+            let b1 = document.getElementById("button-1")
+            let b2 = document.getElementById("button-2")
+            b1.innerHTML = players[a].name;
+            b2.innerHTML = players[b].name;
+
+            b1.addEventListener("click", function () {
+                updateScores(players[a], players[b])
+                console.log(players[a].score);
+                console.log(players[b].score);
+
+                a = randomInt(1, 100);
+                b = randomInt(1, 100);
+                b1.innerHTML = players[a].name;
+                b2.innerHTML = players[b].name;
+                displayRankings(players);
+            })
+
+            b2.addEventListener("click", function(){
+                updateScores(players[b], players[a])
+                console.log(players[a].score);
+                console.log(players[b].score);
+
+                a = randomInt(1, 100);
+                b = randomInt(1, 100);
+                b1.innerHTML = players[a].name;
+                b2.innerHTML = players[b].name;
+            })
+        </script>
+    </div>
+
+    
+    
 </body>
 </html>
