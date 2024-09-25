@@ -1,0 +1,91 @@
+<!--  "¯\_(ツ)_/¯"  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!--probably need something here for the UI but worry about that later-->
+    <title>Elo</title>
+    <link href="quepro.css" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!--Main Code-->
+    <script src = "player.js"></script>
+
+    <!--Create objects-->
+    <div>
+        <script>
+            var players = [];
+            for(var i = 0; i < playerColors.length; i++){
+                players.push(new player(playerColors[i], 1200));
+            }
+
+
+            var a = randomInt(1, players.length);
+            var b = diffRandomInt(a, 1, players.length);
+            //make sure they are not the same one
+            
+        </script>
+    </div>
+    
+    <div>
+        
+        <button id="button-1">
+            
+        </button>
+        <button id="button-2">
+            
+        </button>
+        <script>
+            let screenWidth = window.innerWidth;
+            let screenHeight = window.innerHeight;
+
+            let b1 = document.getElementById("button-1")
+
+            
+            let b2 = document.getElementById("button-2")
+            b1.innerHTML = players[a].name;
+            b2.innerHTML = players[b].name;
+
+
+            b1.style.position = "absolute";
+            b1.style.left = (screenWidth/2-225)+'px';
+            b1.style.top = (screenHeight/2 -50)+'px';
+            
+            b2.style.position = "absolute";
+            b2.style.left = (screenWidth/2 + 25)+'px';
+            b2.style.top = (screenHeight/2 -50)+'px';
+
+
+            b1.addEventListener("click", function () {
+                updateScores(players[a], players[b])
+                console.log(players[a].score);
+                console.log(players[b].score);
+
+                a = randomInt(1, players.length);
+                b = diffRandomInt(a, 1, players.length);
+                b1.innerHTML = players[a].name;
+                b2.innerHTML = players[b].name;
+                displayRankings(players);
+            })
+
+            b2.addEventListener("click", function(){
+                updateScores(players[b], players[a])
+                console.log(players[a].score);
+                console.log(players[b].score);
+
+                a = randomInt(1, players.length);
+                b = diffRandomInt(a, 1, players.length);
+                b1.innerHTML = players[a].name;
+                b2.innerHTML = players[b].name;
+            })
+        </script>
+    </div>
+    <div>
+
+    </div>
+
+    
+    
+</body>
+</html>
