@@ -8,10 +8,10 @@ button {
     font-size: 15px;
 }
 
-#button-2{
+/*#button-2{
     border: 2px solid rgb(203, 0, 0);
     color: red;
-}
+}*/
 
 
 #signUpButton{
@@ -21,5 +21,7 @@ button {
     height: revert;
     background-color: revert;
     color: revert;
+    border-radius: revert;
+    font-size: revert;
 }
 

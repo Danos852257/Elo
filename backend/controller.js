@@ -3,7 +3,12 @@ import { Competitions } from './models/competitions.js';
 
 
 export async function createUser(username, password) {
-    return await Users.create({ uName: username, password: password });
+    try{
+        return await Users.create({ uName: username, password: password });
+    }
+    catch(error){
+        throw new Error("Username already taken. Please use a different username.");
+    }
 }
 
 export async function createComp(name, isPublic) {
@@ -44,4 +49,30 @@ export async function addPlayersToComp(competitionName, newPlayerData) {
         throw error; // Re-throw the error to handle it in the route
     }
     return;
+}
+
+export async function loginFunction(username, pWord){
+    try{
+        let x = await Users.findByPk(username);
+        if (x.password == pWord){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    catch{
+        return false;
+    }
+}
+
+export async function signUpFunction(username, password){
+    try{
+        await createUser(username, password);
+    }
+    catch(error){
+        console.log("User creation failed. Username is already taken (probably)");
+        throw error;
+    }
+    return {sucsess: true};
 }

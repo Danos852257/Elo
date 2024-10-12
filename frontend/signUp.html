@@ -6,17 +6,61 @@
 </head>
 
 <body>
-    Sign Up
-    <form>
+    Sign Up 
+
+    <form id="signUpForm">
         <br>
-        <label>Username:</label><input type = "text", name = "Username">
+        <label>Username:</label><input type="text" name="Username" id="username" required>
         <br><br>
-        <label>Password:<input type = "password", password = "Password"></label>
+        <label>Password:</label><input type="password" name="Password" id="password" required>
         <br><br>
-        <label>Confirm Password:<input type = "password", confirm = "Confirm"></label>
-        <br>
-        <input class = "submitButton", type = "submit", value = "Create New Account">
-        <a href = "login.html">Already have an account?</a>
-        
+        <label>Confirm Password:</label><input type="password" name="Confirm" id="confirmPassword">
+        <br><br>
+        <input class="submitButton" type="submit" value="Create New Account">
+        <a href="login.html">Already created an account? Log in</a>
     </form>
+
+    <script>
+        const hyperLink = "http://127.0.0.1:3000/";
+        document.getElementById("signUpForm").addEventListener("submit", function(event){
+            event.preventDefault(); // Prevent the form's default behavior (reload)
+            
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (confirmPassword !== password) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            let data;
+
+            fetch('http://127.0.0.1:3000/signUpFunction', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                if (data.sucsess) {
+                    window.location.href = './login.html'; // Uncomment to redirect on success
+                } else {
+                    alert('Error: ' + data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                console.log(error)
+                // alert('An error occurred.');
+            });
+
+        });
+    </script>    
 </body>
