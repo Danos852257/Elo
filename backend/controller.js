@@ -55,14 +55,14 @@ export async function loginFunction(username, pWord){
     try{
         let x = await Users.findByPk(username);
         if (x.password == pWord){
-            return true;
+            return {success: true};
         }
         else{
-            return false;
+            return  {success: false};
         }
     }
     catch{
-        return false;
+        return {success: false};
     }
 }
 

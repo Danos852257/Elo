@@ -1,61 +1,69 @@
 <!DOCTYPE html>
+
 <head>
     <title>Login</title>
-    <link href="quepro.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     Log In
-    <form id = "loginForm">
+
+    <script>
+        localStorage.removeItem("username");
+    </script>
+
+    
+    <form id="loginForm">
         <br>
-        <label>Username:</label><input type = "text", name = "Username"><br><br></label>
-        <label>Password: </label><input type = "password", password = "Password"></label><br>
-        <input class = "submitButton", type = "submit", value = "Login">
+        <label>Username:</label><input type="text" id = "user" name="Username"><br><br></label>
+        <label>Password: </label><input type="password" id = "pWord" name="Password"></label><br>
+        <input class="submitButton" type="submit" value="Login">
     </form>
-    <a href = "signUp.html">
-        <button id = "signUpButton">Sign Up</button>
+    <a href="signUp.html">
+        <button id="signUpButton">Sign Up</button>
     </a>
     <br>
-    <a href = "forgotPassword.html">Forgot Password?</a>
+    <a href="forgotPassword.html">Forgot Password?</a>
 
 
 
     <script>
         const hyperLink = "http://127.0.0.1:3000/";
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent the form from submitting normally
-            
+
             const username = document.getElementById("user");
             const password = document.getElementById("pWord");
 
             let flag = false; // Initialize the flag
 
             // Send GET request with username and password as query parameters
-            fetch(`http://127.0.0.1:3000/loginFunction?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
+            fetch(`http://127.0.0.1:3000/loginFunction?username=${encodeURIComponent(username.value)}&password=${encodeURIComponent(password.value)}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success === true) { // If the response has success as true
-                    flag = true; // Set the flag to true
-                    alert('Success');
-                } else {
-                    flag = false; // Set the flag to false
-                    alert('Error: Invalid credentials');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while logging in');
-            });
-    });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) { // If the response has success as true
+                        flag = true; // Set the flag to true
+                        localStorage.setItem("username", username.value);
+                        window.location.href = "index.html";
+                    } else {
+                        flag = false; // Set the flag to false
+                        alert('Error: Invalid credentials');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while logging in');
+                });
+        });
 
-           
-         
+
+
 
     </script>
 </body>

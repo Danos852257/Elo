@@ -48,6 +48,7 @@ app.get("/loginFunction", async (req, res) => {
   res.json(await loginFunction(user, pWord))
 })
 
+
 app.post('/setPlayers/:comp', async (req, res) => {
   const { comp } = req.params;
   const data = req.body;
