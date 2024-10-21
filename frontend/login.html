@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <script src = "player.js"></script>
     Log In
 
     <script>
@@ -39,7 +40,7 @@
             const password = document.getElementById("pWord");
 
             // Send GET request with username and password as query parameters
-            fetch(`http://127.0.0.1:3000/loginFunction?username=${encodeURIComponent(username.value)}&password=${encodeURIComponent(password.value)}`, {
+            fetch(`${hyperlink}/loginFunction?username=${encodeURIComponent(username.value)}&password=${encodeURIComponent(password.value)}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json'

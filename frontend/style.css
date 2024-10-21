@@ -56,3 +56,9 @@
     background-color: red;
     left: calc(50% + 100px);
 }
+
+#showRankings{
+    position: absolute;
+    top: 50px;
+    right: 5px;
+}

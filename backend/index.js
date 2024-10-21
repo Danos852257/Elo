@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import { getUser, signUpFunction, loginFunction, createCompetition, getCompetitions } from './controller.js';
+import { getUser, signUpFunction, loginFunction, createCompetition, getCompetitions, sendRankingResults } from './controller.js';
 
 const app = express();
 const PORT = 3000;
@@ -57,6 +57,18 @@ app.post("/createCompetition", async (req, res) => {
   let data;
   try{
     data = await createCompetition(user, compName, isPublic, playerData);
+    res.json(data)
+  }catch(error){
+    console.log(error)
+    res.json(error.message)
+  }
+});
+
+app.post("/sendRankingResults", async (req, res) => {
+  const { PK, playerData } = req.body;
+  let data;
+  try{
+    data = await sendRankingResults(PK, playerData);
     res.json(data)
   }catch(error){
     console.log(error)

@@ -7,9 +7,10 @@
         <meta charset = "UTF-8">
     </head>
     <body>
+        <script src = "player.js"></script>
         <div class="topnav">
             <a class="active" href="#home">Home</a>
-            <a href="#about">About</a>
+            <a href="about.html">About</a>
         </div>
 
         <script>
@@ -62,7 +63,7 @@
                         // If the line is not just a comma, remove trailing commas
                         return trimmedWord === "," ? "," : trimmedWord.replace(/,$/, "");
                     })
-                    .filter(word => word !== ""); // Ensure no empty lines are added;
+                    .filter(word => word !== ""); // Ensure no empty players are added;
                 competitorsArray = [...new Set(competitorsArray)];
                 competitorsArray = competitorsArray.filter(word => word.trim() !== "");
 
@@ -73,7 +74,7 @@
 
                 console.log(playerData);
 
-                fetch('http://127.0.0.1:3000/createCompetition', {
+                fetch(`${hyperlink}/createCompetition`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -89,7 +90,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        window.location.href = './homepage.html'; // Uncomment to redirect on success
+                        window.location.href = './homepage.html';
                     } else {
                         if (data === "Validation error"){
                             alert("Ranking already exists. Pick a unique name for ranking");

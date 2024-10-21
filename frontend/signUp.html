@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    <script src = "player.js"></script>
     Sign Up 
 
     <script>
@@ -41,7 +42,7 @@
 
             let data;
 
-            fetch('http://127.0.0.1:3000/signUpFunction', {
+            fetch(`${hyperlink}/signUpFunction`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

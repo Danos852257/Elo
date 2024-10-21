@@ -24,6 +24,32 @@ export async function createCompetition(username, compName, isPublic, playerData
     }
 }
 
+export async function sendRankingResults(PK, playerData){
+    console.log("bbbbbbbbbbbbbbbbbbbbbb");
+    console.log(PK);
+    try {
+        // Update the playerData for the competition identified by PK
+        await Competitions.update(
+            { playerData },
+            {
+                where: {
+                    PK: PK
+                },
+                returning: true
+            }
+        );
+        return {
+            success: true,
+            message: 'Player data updated successfully.',
+        };
+
+    } catch (error) {
+        console.error('Error updating player data:', error);
+        // Return an error message
+        throw new Error('Unable to update data');
+    }
+}
+
 export async function assignUser(userName, compName) {
     const comp = await Competitions.findByPk(compName)
     const user = await Users.findByPk(userName)
@@ -74,3 +100,4 @@ export async function getCompetitions(username){
     }
     return comps;
 }
+

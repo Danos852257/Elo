@@ -1,12 +1,14 @@
 const K = 32.0;
 const denominator = 400.0;
 let defaultScore = 1200.0;
+const hyperlink = "http://127.0.0.1:3000"
 
 
 
 //After updating, score can be a weird number so this makes it easier to display without changing the exact value
-var roundScore = function(){
-    return Math.round(this.score);
+var scoreToDisplay = function(score){
+    score*=100;
+    return (Math.round(score)/100);
 }
     
 
@@ -61,10 +63,9 @@ var diffRandomInt = function(a, low, high){
     return b;
 }
 
-var displayRankings = function(arr){
-    arr.sort(function (a, b){
+var sortPlayers = function(arr){
+    return arr.sort(function (a, b){
         return b.score-a.score;
     });
-    console.log(arr);
 }
 
