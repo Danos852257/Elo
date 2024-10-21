@@ -14,3 +14,45 @@
     top: 5px;
 }
 
+#competitorsBox{
+    width: 400px;
+    height: 300px;
+    resize: none;
+    
+    
+}
+
+.competition-button {
+    padding: 10px;
+    margin: 5px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rankingExit {
+    position: fixed;        /* Fix the position to the viewport */
+    bottom: 20px;          /* Distance from the bottom of the viewport */
+    left: 50%;             /* Center the buttons horizontally */
+    transform: translateX(-50%); /* Adjust position to truly center */
+    padding: 10px 20px;    /* Padding for button size */
+    font-size: 16px;       /* Font size */
+    background-color: #007bff; /* Primary button color */
+    color: white;          /* Text color */
+    border: none;          /* No border */
+    border-radius: 5px;   /* Rounded corners */
+    cursor: pointer;       /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+    margin: 0 5px;        /* Margin for spacing between buttons */
+}
+
+#save {
+    left: calc(50% - 50px);
+}
+
+#cancel {
+    background-color: red;
+    left: calc(50% + 100px);
+}

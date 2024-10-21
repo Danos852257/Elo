@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>New Ranking</title>
+        <link href="style.css" rel="stylesheet">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <meta charset = "UTF-8">
+    </head>
+    <body>
+        <div class="topnav">
+            <a class="active" href="#home">Home</a>
+            <a href="#about">About</a>
+        </div>
+
+        <script>
+            if(!localStorage.getItem("username")){
+                localStorage.clear();
+                window.location.href = "login.html";
+            };
+        </script> 
+
+
+
+
+
+        <form id="createNewRanking">
+            <label>Ranking Name:</label><input type="text" id="rankingName" name="rankingName" required><br>
+            Competitors:<br>
+            <textarea id="competitorsBox" required></textarea><br>
+            <input class="submitButton" type="submit" value="Submit">
+
+        </form>
+
+        <button id="cancelNewRanking">Cancel</button>
+        <script>
+            document.getElementById("cancelNewRanking").addEventListener("click", function(){
+                window.location.href = "homepage.html";
+            });
+        </script>
+
+        <script>
+            const textBox = document.getElementById("competitorsBox");
+            const initialHeight = 300+'px';
+            textBox.style.minHeight = initialHeight;
+            textBox.addEventListener('input', function() {                
+                textBox.style.height = "auto";
+                if(this.scrollHeight>300){
+                    this.style.height = this.scrollHeight + 'px';
+                }
+                
+            });
+        </script>
+        <script>
+            document.getElementById("createNewRanking").addEventListener("submit", function(event){
+                event.preventDefault();
+                let compName = document.getElementById("rankingName")
+                let competitorsRaw = document.getElementById("competitorsBox").value;
+                let competitorsArray = competitorsRaw.trim().split("\n");
+                competitorsArray = competitorsArray
+                    .map(word => {
+                        let trimmedWord = word.trim();
+                        // If the line is not just a comma, remove trailing commas
+                        return trimmedWord === "," ? "," : trimmedWord.replace(/,$/, "");
+                    })
+                    .filter(word => word !== ""); // Ensure no empty lines are added;
+                competitorsArray = [...new Set(competitorsArray)];
+                competitorsArray = competitorsArray.filter(word => word.trim() !== "");
+
+                const playerData = competitorsArray.map(competitor => ({
+                    name: competitor,
+                    score: 1200
+                }));
+
+                console.log(playerData);
+
+                fetch('http://127.0.0.1:3000/createCompetition', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        user: localStorage.getItem("username"),
+                        compName: document.getElementById("rankingName").value,
+                        playerData: playerData,  // Send the processed playerData JSON
+                        isPublic: false,
+                    })
+                    
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = './homepage.html'; // Uncomment to redirect on success
+                    } else {
+                        if (data === "Validation error"){
+                            alert("Ranking already exists. Pick a unique name for ranking");
+                        }
+                        else {
+                            alert('Error: ' + data);
+                        }
+                    }
+                }).catch(error => {
+                    console.error("Error:", error);
+                });
+            })
+            
+
+        </script>
+    </body>
+
+
+
+</html>

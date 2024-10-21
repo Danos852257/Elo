@@ -4,10 +4,14 @@ import DataTypes from 'sequelize';
 const Competitions = sequelize.define(
     'Competitions',
     {
+        PK:{
+            type:DataTypes.STRING,
+            allowNull: false,
+            primaryKey: true
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-            primaryKey: true
         },
         playerData: {
             type: DataTypes.JSON,
@@ -20,5 +24,6 @@ const Competitions = sequelize.define(
 
     }
 );
+
 
 export { Competitions }

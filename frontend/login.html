@@ -4,13 +4,14 @@
     <title>Login</title>
     <link href="style.css" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset = "UTF-8">
 </head>
 
 <body>
     Log In
 
     <script>
-        localStorage.removeItem("username");
+        localStorage.clear();
     </script>
 
     
@@ -20,6 +21,7 @@
         <label>Password: </label><input type="password" id = "pWord" name="Password"></label><br>
         <input class="submitButton" type="submit" value="Login">
     </form>
+    
     <a href="signUp.html">
         <button id="signUpButton">Sign Up</button>
     </a>
@@ -36,8 +38,6 @@
             const username = document.getElementById("user");
             const password = document.getElementById("pWord");
 
-            let flag = false; // Initialize the flag
-
             // Send GET request with username and password as query parameters
             fetch(`http://127.0.0.1:3000/loginFunction?username=${encodeURIComponent(username.value)}&password=${encodeURIComponent(password.value)}`, {
                 method: "GET",
@@ -48,11 +48,9 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success === true) { // If the response has success as true
-                        flag = true; // Set the flag to true
                         localStorage.setItem("username", username.value);
-                        window.location.href = "index.html";
+                        window.location.href = "homepage.html";
                     } else {
-                        flag = false; // Set the flag to false
                         alert('Error: Invalid credentials');
                     }
                 })

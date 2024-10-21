@@ -6,27 +6,84 @@
     <title>Elo</title>
     <link href="style.css" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset = "UTF-8">
 </head>
 <body>
     <!--Main Code-->
     <script src = "player.js"></script>
 
-    <!--Create objects-->
-    <div>
-        <script>
-            
-        </script>
-    </div>
-    
+    <script>
+        if(!localStorage.getItem("username")){
+            localStorage.clear();
+            window.location.href = "login.html";
+        };
+    </script>    
+
     <div class = "topnav">
         <a class="active" href="#home">Home</a>
         <a href="#about">About</a>
 
-        <a href="login.html">Log Out</a>
     </div>
+
+    <button id = "logout">Logout</button>
+
+
+    <script>
+        document.getElementById("logout").addEventListener("click", function(){
+            localStorage.clear();
+            window.location.href = "login.html";
+        });
+    </script>
+
+
+    <button id="createCompButton">New Ranking</button>
     <div>
 
     </div>
+    <script>
+        document.getElementById("createCompButton").addEventListener("click", function(){
+            window.location.href = "newranking.html";
+        })
+    </script>
+
+    <div id="competitionsContainer"></div>
+
+    <script>
+        //figure out how to get the competitions list 
+        var competitions = [];
+        fetch(`http://127.0.0.1:3000/getCompetitions?username=${localStorage.getItem("username")}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            //data is the list of competitions and their data
+            console.log(data);
+
+            const container = document.getElementById("competitionsContainer");
+
+            data.forEach(competition => {
+                const competitionButton = document.createElement('button');
+                competitionButton.classList.add('competition-button');
+                competitionButton.innerHTML = `${competition.name}`;
+                container.appendChild(competitionButton);
+
+                competitionButton.addEventListener('click', () =>{
+                    localStorage.setItem("selectedCompetition", JSON.stringify(competition));
+                    console.log(localStorage.getItem("selectedCompetition"));
+                    window.location.href = "./index.html";
+                })
+            });
+
+            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred');
+        });
+    </script>
 
     
     

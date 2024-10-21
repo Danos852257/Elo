@@ -11,8 +11,17 @@ export async function createUser(username, password) {
     }
 }
 
-export async function createComp(name, isPublic) {
-    return await Competitions.create({ name: name, isPublic: isPublic });
+export async function createCompetition(username, compName, isPublic, playerData) {
+    try{
+        let compPK = (username+"-"+compName);
+        await Competitions.create({ PK:compPK, name: compName, isPublic: isPublic, playerData: playerData });
+        await assignUser(username, compPK);
+        return {success: true};
+    }
+    catch(error){
+        console.log("Ranking already exists. Pick a unique name for ranking");
+        throw error;
+    }
 }
 
 export async function assignUser(userName, compName) {
@@ -25,31 +34,7 @@ export async function getUser(name) {
     return await Users.findByPk(name);
 }
 
-export async function getCompetitionsWithUser(name) {
-    const data = await Users.findAll({
-        name,
-        include: {
-            model: Competitions
-        },
-    });
 
-    return (data[0].Competitions)
-}
-
-export async function addPlayersToComp(competitionName, newPlayerData) {
-    try {
-        const [updatedRows] = await Competitions.update(
-            { playerData: newPlayerData },
-            {
-                where: { name: competitionName },
-            }
-        );
-    } catch (error) {
-        console.error('Error updating competition:', error);
-        throw error; // Re-throw the error to handle it in the route
-    }
-    return;
-}
 
 export async function loginFunction(username, pWord){
     try{
@@ -74,5 +59,18 @@ export async function signUpFunction(username, password){
         console.log("User creation failed. Username is already taken (probably)");
         throw error;
     }
-    return {sucsess: true};
+    return {success: true};
+}
+
+export async function getCompetitions(username){
+    let comps = [];
+    var i = 0;
+    const allComps = await Competitions.findAll(); //gets the list of all competitions, regardless of user
+    while(i < allComps.length){
+        if(allComps[i].UserUName === username){
+            comps.push(allComps[i]);
+        }
+        i++
+    }
+    return comps;
 }

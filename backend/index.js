@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import { addPlayersToComp, getCompetitionsWithUser, getUser, signUpFunction, loginFunction } from './controller.js';
+import { getUser, signUpFunction, loginFunction, createCompetition, getCompetitions } from './controller.js';
 
 const app = express();
 const PORT = 3000;
@@ -10,7 +10,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(cors())
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 var corsOptions = {
@@ -28,36 +28,39 @@ app.get('/getCompetitionsWithUser/:user', async (req, res) => {
   res.json(await getCompetitionsWithUser(user));
 });
 
-app.post("/signUpFunction", async (req,res) => {
+app.get("/loginFunction", async (req, res) => {
+  const user = req.query.username;
+  const pWord = req.query.password;
+  res.json(await loginFunction(user, pWord))
+});
+
+app.get("/getCompetitions", async (req, res) =>{
+  const username = req.query.username;
+  const comps = await getCompetitions(username);
+  res.json(comps);
+});
+
+app.post("/signUpFunction", async (req, res) => {
   const { username, password } = req.body;
-  console.log(req.json)
-  console.log(username)
   let data;
-  try{
+  try {
     data = await signUpFunction(username, password)
     res.json(data);
-  }catch(error){
+  } catch (error) {
     console.log(error)
     res.json(error.message);
   }
 });
 
-app.get("/loginFunction", async (req, res) => {
-  const user = req.query.username;
-  const pWord = req.query.password;
-  res.json(await loginFunction(user, pWord))
-})
-
-
-app.post('/setPlayers/:comp', async (req, res) => {
-  const { comp } = req.params;
-  const data = req.body;
-
-  try {
-    await addPlayersToComp(comp, data);
-    res.status(200).json({ message: `Players updated for competition "${comp}"` });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update players' });
+app.post("/createCompetition", async (req, res) => {
+  const { user, compName,playerData, isPublic } = req.body;
+  let data;
+  try{
+    data = await createCompetition(user, compName, isPublic, playerData);
+    res.json(data)
+  }catch(error){
+    console.log(error)
+    res.json(error.message)
   }
 });
 

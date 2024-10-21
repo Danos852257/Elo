@@ -3,10 +3,16 @@
     <title>Sign Up</title>
     <link href="style.css" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset = "UTF-8">
 </head>
 
 <body>
     Sign Up 
+
+    <script>
+        localStorage.clear();
+    </script>
+
 
     <form id="signUpForm">
         <br>
@@ -21,9 +27,8 @@
     </form>
 
     <script>
-        const hyperLink = "http://127.0.0.1:3000/";
         document.getElementById("signUpForm").addEventListener("submit", function(event){
-            event.preventDefault(); // Prevent the form's default behavior (reload)
+            event.preventDefault();
             
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
@@ -49,8 +54,8 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                if (data.sucsess) {
-                    window.location.href = './login.html'; // Uncomment to redirect on success
+                if (data.success) {
+                    window.location.href = './login.html';
                 } else {
                     alert('Error: ' + data);
                 }
