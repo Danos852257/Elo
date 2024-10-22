@@ -1,7 +1,7 @@
 const K = 32.0;
 const denominator = 400.0;
 let defaultScore = 1200.0;
-const hyperlink = "http://127.0.0.1:3000"
+const hyperlink = ""
 
 
 
@@ -51,7 +51,7 @@ var updateScores = function(winner, loser){
 
 var randomInt = function(low, high){
     var range = high-low;
-    var num = ((Math.random()*range)+(low-1));
+    var num = ((Math.random()*range)+(low));
     return Math.round(num);
 }
 

@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!--probably need something here for the UI but worry about that later-->
     <title>Elo</title>
     <link href="style.css" rel="stylesheet">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -21,6 +20,7 @@
             window.location.href = "login.html";
         };
     </script>
+
     <script>
         //redirect user to the homepage if no competition is selected
         if(!localStorage.getItem("selectedCompetition")){
@@ -31,13 +31,9 @@
 
 
 
-    <div class="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="about.html">About</a>
-    </div>
+    
 
-    <!--Logout button stuff-->
-    <button id = "logout">Logout</button>
+    
     <script>
         document.getElementById("logout").addEventListener("click", function(){
             localStorage.clear();
@@ -58,51 +54,94 @@
         console.log(players);
 
 
-        var a = randomInt(1, players.length);
-        var b = diffRandomInt(a, 1, players.length); //ensures that the same player is not chosen twice
+        var a = randomInt(0, players.length-1);
+        var b = diffRandomInt(a, 0, players.length-1); //ensures that the same player is not chosen twice
     </script>
     
     
-
-
-    <div style="display:flex; width: 100%; height: 100vh;"">
-        <div id="leftSide" style="flex: 7; padding: 20px">
-            <button id="button-1" class="option"></button>
-            <button id="button-2" class="option"></button>
+    
+    <div id="containerContainer">
+        <h1 id="competitionTitle"></h1>
+        <div class = "topnav">
+            <button id = "about">About</button>
         </div>
-        
-        
-        <div id="rightSide" style="flex: 3; padding: 20px;">
-            <button id="showRankings">Show Rankings</button>
-            <ul id="rankingsList"></ul>
+        <div style="display:flex; width: 100%; flex:1; position: relative; align-items: center; justify-content: center;">
+            <div id="optionButtonsContainer">
+                <button id="button-1" class="option"></button>
+                <button id="button-2" class="option"></button>
+            </div>
+            
+            
+            <div id="rightSide">
+                <button id="showRankings">Show Rankings</button>
+                <div id="rankingsDisplayContainer">
+                    <table id="rankingsDisplayTable">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rankingsList">
+                            
+                        </tbody>
+                
+                    </table>
+                </div>
+                
+            </div>
+            
+            <div id="rankingExitButtons">
+                <button id="save" class="rankingExit">Save and Exit</button>
+                <button id="cancel" class="rankingExit">Cancel</button>
+            </div>
+            
         </div>
     </div>
+    <script>
+        document.getElementById("about").addEventListener("click", function(){
+            window.location.href = "about.html";
+        });
+    </script>
+
     
-    <style>
-        .show-border {
-            border-left: 1px solid #ccc;
-        }
-    </style>
 
 
 
 
 
 
-    <button id="save" class="rankingExit">Save and Exit</button>
-    <button id="cancel" class="rankingExit">Cancel</button>
+    
 
 
+    
 
     <script>
+        document.getElementById("competitionTitle").innerHTML = currentComp.name;
+
+
         function updateRankingsDisplay() {
             const rankingsList = document.getElementById("rankingsList");
             rankingsList.innerHTML = ""; // Clear the current list
+            
 
             players.forEach((player, index) => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `${index + 1}. ${player.name} ${scoreToDisplay(player.score)}`;
-                rankingsList.appendChild(listItem);
+                const row = document.createElement("tr"); // Create a new table row
+
+                const rankCell = document.createElement("td"); // Create a cell for the rank
+                rankCell.textContent = index + 1; // Set rank text
+                row.appendChild(rankCell); // Append rank cell to the row
+
+                const nameCell = document.createElement("td"); // Create a cell for the name
+                nameCell.textContent = player.name; // Set name text
+                row.appendChild(nameCell); // Append name cell to the row
+
+                const scoreCell = document.createElement("td"); // Create a cell for the score
+                scoreCell.textContent = scoreToDisplay(player.score); // Set score text
+                row.appendChild(scoreCell); // Append score cell to the row
+
+                rankingsList.appendChild(row); // Append the completed row to the table body
             });
         }
     </script>
@@ -114,17 +153,23 @@
         document.getElementById("showRankings").addEventListener("click", function(){
             const rankingsContainer = document.getElementById("rightSide");
             const rankingsList = document.getElementById("rankingsList");
+            const rankingTable = document.getElementById("rankingsDisplayTable");
+
 
             //switch between show and hide
-            if(this.innerHTML === "Show Rankings"){
-                updateRankingsDisplay();
-            }
-            else{
-                this.innerHTML = "Show Rankings"
-                rankingsList.innerHTML = "";
+            if (this.innerHTML === "Show Rankings") {
+                updateRankingsDisplay();  // Call your function to update the rankings
+                this.innerHTML = "Hide Rankings";  // Now set it to 'Hide Rankings'
+                rankingsContainer.classList.add("show-border");
+                rankingTable.style.display = "block";
+            } else {
+                this.innerHTML = "Show Rankings";  // Switch back to 'Show Rankings'
+                rankingsList.innerHTML = "";  // Clear the rankings
                 rankingsContainer.classList.remove("show-border");
+                rankingTable.style.display = "none";
+
             }
-            rankingsContainer.classList.remove("hidden");
+            
 
         });
     </script>
@@ -145,37 +190,38 @@
         b2.innerHTML = players[b].name;
 
 
-        b1.style.position = "absolute";
-        b1.style.left = (screenWidth/2-225)+'px';
-        b1.style.top = (screenHeight/2 -50)+'px';
-        
-        b2.style.position = "absolute";
-        b2.style.left = (screenWidth/2 + 25)+'px';
-        b2.style.top = (screenHeight/2 -50)+'px';
-
-
         b1.addEventListener("click", function () {
             updateScores(players[a], players[b])
+            
+            players = sortPlayers(players);
 
-            a = randomInt(1, players.length);
-            b = diffRandomInt(a, 1, players.length);
+            if(document.getElementById("showRankings").innerHTML === "Hide Rankings"){
+                updateRankingsDisplay();
+            }
+
+            a = randomInt(0, players.length-1);
+            b = diffRandomInt(a, 0, players.length-1);
             b1.innerHTML = players[a].name;
             b2.innerHTML = players[b].name;
 
-            players = sortPlayers(players);
-            updateRankingsDisplay();
+            
+            
         })
 
         b2.addEventListener("click", function(){
             updateScores(players[b], players[a])
+            
+            players = sortPlayers(players);
 
-            a = randomInt(1, players.length);
-            b = diffRandomInt(a, 1, players.length);
+            if(document.getElementById("showRankings").innerHTML === "Hide Rankings"){
+                updateRankingsDisplay();
+            }
+        
+            a = randomInt(0, players.length-1);
+            b = diffRandomInt(a, 0, players.length-1);
             b1.innerHTML = players[a].name;
             b2.innerHTML = players[b].name;
 
-            players = sortPlayers(players);
-            updateRankingsDisplay();
         })
     </script>
     

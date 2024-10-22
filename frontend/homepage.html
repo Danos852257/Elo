@@ -20,12 +20,11 @@
     </script>    
 
     <div class = "topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="about.html">About</a>
-
+        <button id = "about">About</button>
+        <button id = "logout">Logout</button>
     </div>
 
-    <button id = "logout">Logout</button>
+    
 
 
     <script>
@@ -34,12 +33,19 @@
             window.location.href = "login.html";
         });
     </script>
+    <script>
+        document.getElementById("about").addEventListener("click", function(){
+            window.location.href = "about.html";
+        });
+    </script>
 
 
     <button id="createCompButton">New Ranking</button>
-    <div>
+    
+    <h1 id="myRankingsTitle">My Rankings</h1>
 
-    </div>
+
+
     <script>
         document.getElementById("createCompButton").addEventListener("click", function(){
             window.location.href = "newranking.html";
@@ -47,6 +53,9 @@
     </script>
 
     <div id="competitionsContainer"></div>
+
+
+
 
     <script>
         //figure out how to get the competitions list 

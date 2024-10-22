@@ -1,3 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+#loginForm, #signUpForm {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction:column;
+    gap: 14px;
+    
+}
+
+#signUpForm{
+    align-items: center;
+}
+
+/* Input fields styling */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom:20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Submit and Sign Up button styles */
+input.submitButton, #signUpButton {
+    background-color: #005f99; /* Match with existing button styles */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: calc(50% - 5px); /* Adjust width for two buttons */
+}
+
+input.submitButton:hover{
+    background-color: #004f80;
+}
+
+#signUpButton:hover{
+    background-color: #a61e0c;
+}
+
+/* Button group styling */
+.button-group {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    margin-top: 10px;
+}
+
+#signUpButton {
+    background-color: #bb220e; /* Darker blue */
+    color: white;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+    form#loginForm {
+        padding: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 14px;
+    }
+
+    input.submitButton, #signUpButton {
+        font-size: 14px;
+        padding: 10px;
+        width: 100%; /* Make buttons full width on smaller screens */
+        margin: 10px 0; /* Adjust margin */
+    }
+}
+
+.login-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.link {
+    display: block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.loginFormContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.forgotPasswordContainer{
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.topnav{
+    position: relative;
+    top: 0;
+    width: 100vw;
+    height: 60px;
+    background-color: rgb(0, 128, 128);
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.newRankingFormContainer{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    width: 100vw;
+    height: 100%;
+    position: relative;
+
+}
+
+
+
+#createNewRanking{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+#submitNewRanking:hover{
+    background-color: #004f80;
+}
+
+#cancelNewRanking{
+    background-color:#bb220e
+}
+
+#cancelNewRanking:hover{
+    background-color: #a61e0c;
+}
+
+
+.newRankingSubmitButtonsContainer{
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .option{
     border: 2px solid #1eb1e3;
     width: 200px;
@@ -9,43 +207,65 @@
 }
 
 #logout{
-    position: absolute;
-    right: 5px;
-    top: 5px;
+    margin-left: auto;
+    border:none;
+    padding: 8px 18px 8px 18px;
+    height: 65%;
+    border-radius: 8px;
+    background-color:#cf0e0e;
+    color: #ffffff;
+    font-size: 16px;
+    margin-right: 5px;
 }
 
+#logout:hover{
+    background-color: #a61e0c;
+}
+
+
 #competitorsBox{
-    width: 400px;
+    width: 100%;
     height: 300px;
     resize: none;
-    
-    
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.newRankingSubmitButton{
+    background-color: #005f99; /* Match with existing button styles */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: calc(50% - 5px); /* Adjust width for two buttons */
+    box-sizing: border-box;
 }
 
 .competition-button {
     padding: 10px;
-    margin: 5px;
-    background-color: #007BFF;
+    background-color: #005f99;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+
+}
+
+.rankingExit {
+    bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.rankingExit {
-    position: fixed;        /* Fix the position to the viewport */
-    bottom: 20px;          /* Distance from the bottom of the viewport */
-    left: 50%;             /* Center the buttons horizontally */
-    transform: translateX(-50%); /* Adjust position to truly center */
-    padding: 10px 20px;    /* Padding for button size */
-    font-size: 16px;       /* Font size */
-    background-color: #007bff; /* Primary button color */
-    color: white;          /* Text color */
-    border: none;          /* No border */
-    border-radius: 5px;   /* Rounded corners */
-    cursor: pointer;       /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Transition for hover effect */
-    margin: 0 5px;        /* Margin for spacing between buttons */
+    transition: background-color 0.3s;
 }
 
 #save {
@@ -59,6 +279,131 @@
 
 #showRankings{
     position: absolute;
-    top: 50px;
+    top: 5px;
     right: 5px;
+    width: 120px;
+    border: 0;
+    background-color: slategray;
+    color: white;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#rightSide{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove space between table cells */
+}
+
+th, td {
+    border: 1px solid #ccc; /* Add border to cells */
+    padding: 10px 20px; /* Add padding for better spacing */
+    text-align: left; /* Align text to the left */
+}
+
+th {
+    background-color: #f4f4f4; /* Light background for the header */
+    font-weight: bold; /* Bold header text */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra stripe effect */
+}
+
+#rankingsDisplayContainer{
+    position: absolute;
+    top: 40px;
+    right: 5px;
+}
+
+#rankingsDisplayTable{
+    display: none;
+}
+
+#optionButtonsContainter{
+    display: flex;
+    gap: 12px;
+
+}
+
+#containerContainer{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#competitionTitle{
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#rankingExitButtons{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 14px;
+    bottom: 20px;
+}
+
+#createCompButton{
+    position: absolute;
+    top: 65px;
+    right: 5px;
+    width: 120px;
+    border: 0;
+    background-color: slategray;
+    color: white;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#myRankingsTitle{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 14px;
+    top: 65px;
+}
+
+#competitionsContainer{
+    position: absolute;
+    width: 50vw;
+    display: flex;
+    top: 140px;
+    justify-content: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+#about{
+    border:none;
+    padding: 8px 18px 8px 18px;
+    height: 65%;
+    border-radius: 8px;
+    background-color:#28a745;
+    color: #ffffff;
+    font-size: 16px;
+    margin-right: auto;
+    margin-left: 5px;
+}
+
+#about:hover{
+    background-color: #218838;
 }

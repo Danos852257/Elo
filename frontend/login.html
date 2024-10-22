@@ -9,25 +9,36 @@
 
 <body>
     <script src = "player.js"></script>
-    Log In
 
     <script>
         localStorage.clear();
     </script>
 
+    <div class="loginFormContainer">
+        <h2 class="login-title">Log In</h2>
+
+
+        <form id="loginForm">
+            
+            <label>Username:</label>
+            <input type="text" id="user" name="Username">
+            <label>Password:</label>
+            <input type="password" id="pWord" name="Password">
+
+            <div class="formbuttons">
+                <input class="submitButton" type="submit" id="submit" value="Login">
+                <a href="signUp.html">
+                    <button id="signUpButton" type="button">Sign Up</button>
+                </a>
+            </div>
+            
+        </form>
+
+        <!-- Sign Up and Forgot Password Links -->
+        <a class="link" href="forgotPassword.html">Forgot Password?</a>
+
+    </div>
     
-    <form id="loginForm">
-        <br>
-        <label>Username:</label><input type="text" id = "user" name="Username"><br><br></label>
-        <label>Password: </label><input type="password" id = "pWord" name="Password"></label><br>
-        <input class="submitButton" type="submit" value="Login">
-    </form>
-    
-    <a href="signUp.html">
-        <button id="signUpButton">Sign Up</button>
-    </a>
-    <br>
-    <a href="forgotPassword.html">Forgot Password?</a>
 
 
 
